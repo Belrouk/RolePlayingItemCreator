@@ -1,0 +1,24 @@
+{% load i18n static%}
+
+<div class="card">
+  <div class="card-header" id="{{item.id}}">
+    <div class="btn btn-link " data-toggle="collapse" data-target="#collapse{{item.id}}" aria-expanded="true" aria-controls="collapseOne{{item.id}}">
+      <div class='row'>
+        <div class="col-md-auto"> <h5> {{item.name}} </h5> </div>
+        <div class="col-md-auto"> {{item.type_text}} </div>
+        <div class="col-md-auto"> {{item.rarity_text}} </div>
+        <div class="col-md-auto"> {{item.attunement}} </div>
+        <div class="col-md-auto"> {% if item.campaign %}{{item.campaign}} {%else%} ---- {% endif %}</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="collapse{{item.id}}" class="collapse" aria-labelledby="{{item.id}}" data-parent="#accordion">
+    <div class="card-body">
+      <p> {{item.description}} </p>
+      <p>{{item.benefits}}</p>
+      <a href="{% url 'items:item_editor' item.id %}"> Edit</a>
+
+    </div>
+  </div>
+</div>
