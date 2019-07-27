@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class RpItemsConfig(AppConfig):
-    name = 'rp_items'
+    name = "rp_items"

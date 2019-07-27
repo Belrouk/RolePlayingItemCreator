@@ -26,15 +26,13 @@ admin.autodiscover()
 urlpatterns = i18n_patterns(
     # Change the admin prefix here to use an alternate URL for the
     # admin interface, which would be marginally more secure.
-    url("^admin/", include(admin.site.urls)),
+    url("^admin/", include(admin.site.urls))
 )
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^$',
-        TemplateView.as_view(template_name='base.html'),
-        name='home'),
-    url(r'^items/', include('item_forger.urls', namespace='item_forger')),
+    url(r"^admin/", include(admin.site.urls)),
+    url(r"^$", TemplateView.as_view(template_name="base.html"), name="home"),
+    url(r"^items/", include("item_forger.urls", namespace="item_forger")),
     url(r"^", include("mezzanine.urls")),
 ]
 

@@ -1,12 +1,21 @@
-from django.db.models import (Count, Exists, F, IntegerField, Manager,
-                              OuterRef, Prefetch, Q, QuerySet, Subquery,
-                              Sum)
+from django.db.models import (
+    Count,
+    Exists,
+    F,
+    IntegerField,
+    Manager,
+    OuterRef,
+    Prefetch,
+    Q,
+    QuerySet,
+    Subquery,
+    Sum,
+)
 
 from .models import RPItem
 
 
 class ItemCollectionQuerySet(QuerySet):
-
     def filter_item_query(self, rarity, attunement, type, campaign, *args, **kwargs):
         M = RPItem.objects.all()
         if int(rarity) > 0:

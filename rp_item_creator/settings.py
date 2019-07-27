@@ -19,7 +19,7 @@ SITE_TITLE = _("Advanced Business Match")
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '5+aqw%$_jwf##d_ln=zageu+(!9m+==dlpm*+1fxufmn0^=fkp'
+SECRET_KEY = "5+aqw%$_jwf##d_ln=zageu+(!9m+==dlpm*+1fxufmn0^=fkp"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,25 +40,21 @@ STATIC_URL = "/static/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
-ALLOWED_HOSTS = [
-    "localhost", "127.0.0.1",
-]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.sites',
-    'django.contrib.redirects',
-
-    'django_comments',
-
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "django.contrib.redirects",
+    "django_comments",
     "mezzanine.boot",
     "mezzanine.core",
     "mezzanine.pages",
@@ -72,23 +68,18 @@ INSTALLED_APPS = [
     "mezzanine.template.loader_tags",
     "mezzanine.twitter",
     "mezzanine.utils",
-
     "crispy_forms",
-
     "item_forger",
-
-
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "mezzanine.core.request.CurrentRequestMiddleware",
     "mezzanine.core.middleware.RedirectFallbackMiddleware",
     "mezzanine.core.middleware.AdminLoginInterfaceSelectorMiddleware",
@@ -96,14 +87,12 @@ MIDDLEWARE = [
     "mezzanine.pages.middleware.PageMiddleware",
 ]
 
-ROOT_URLCONF = 'rp_item_creator.urls'
+ROOT_URLCONF = "rp_item_creator.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [
-            os.path.join(BASE_DIR, "site_templates"),
-        ],
+        "DIRS": [os.path.join(BASE_DIR, "site_templates")],
         "OPTIONS": {
             "context_processors": [
                 "django.contrib.auth.context_processors.auth",
@@ -117,27 +106,22 @@ TEMPLATES = [
                 "mezzanine.conf.context_processors.settings",
                 "mezzanine.pages.context_processors.page",
             ],
-            "builtins": [
-                "mezzanine.template.loader_tags",
-            ],
+            "builtins": ["mezzanine.template.loader_tags"],
             "loaders": [
                 "mezzanine.template.loaders.host_themes.Loader",
                 "django.template.loaders.filesystem.Loader",
                 "django.template.loaders.app_directories.Loader",
-            ]
+            ],
         },
-    },
+    }
 ]
 
 
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "site_assets"),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "site_assets")]
 DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50M
 FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50M
 
-WSGI_APPLICATION = 'rp_item_creator.wsgi.application'
+WSGI_APPLICATION = "rp_item_creator.wsgi.application"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
@@ -159,28 +143,21 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
     },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
-WSGI_APPLICATION = 'rp_item_creator.wsgi.application'
-
+WSGI_APPLICATION = "rp_item_creator.wsgi.application"
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -205,6 +182,7 @@ f = os.path.join(PROJECT_APP_PATH, "local_settings.py")
 if os.path.exists(f):
     import sys
     import imp
+
     module_name = "%s.local_settings" % PROJECT_APP
     module = imp.new_module(module_name)
     module.__file__ = f

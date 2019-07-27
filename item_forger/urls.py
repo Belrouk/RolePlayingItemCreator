@@ -4,7 +4,7 @@ from django.views.generic.base import TemplateView
 
 
 urlpatterns = [
-    url(r'^collection/$', view_collection, name='item_collection'),
-    url(r'^creator/$', create_item_view, name='forge_item'),
-    url(r'^edit/(?P<id>[\d]+)/$', edit_item_view, name='edit_item'),
+    url(r"^collection/$", view_collection, name="item_collection"),
+    url(r"^creator/$", create_item_view, name="forge_item"),
+    url(r"^edit/(?P<id>[\d]+)/$", edit_item_view, name="edit_item"),
 ]
