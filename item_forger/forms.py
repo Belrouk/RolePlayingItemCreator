@@ -14,6 +14,7 @@ from crispy_forms.layout import HTML, Fieldset, Layout, Div, Submit, Row, Column
 from django.utils.translation import ugettext_lazy as _
 from .models import RPItem
 from django.core.exceptions import ValidationError
+from .fields import EmptyChoiceField
 
 
 class ViewCollectionForm(Form):
@@ -23,14 +24,14 @@ class ViewCollectionForm(Form):
         self.fields["campaign_filter"] = ChoiceField(
             choices=self.campaign_list, required=False
         )
-        self.fields["rarity_filter"] = ChoiceField(
-            choices=RPItem.RARITY_LEVEL, required=False
+        self.fields["rarity_filter"] = EmptyChoiceField(
+            choices=RPItem.RARITY_LEVEL, empty_label="-----", required=False
         )
-        self.fields["attunement_filter"] = ChoiceField(
-            choices=RPItem.ATTUNEMENT, required=False
+        self.fields["attunement_filter"] = EmptyChoiceField(
+            choices=RPItem.ATTUNEMENT, empty_label="-----", required=False
         )
-        self.fields["type_filter"] = ChoiceField(
-            choices=RPItem.ITEM_TYPE, required=False
+        self.fields["type_filter"] = EmptyChoiceField(
+            choices=RPItem.ITEM_TYPE, empty_label="-----", required=False
         )
 
     def _get_campaign_list(self):

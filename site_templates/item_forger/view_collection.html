@@ -14,16 +14,16 @@
         {% csrf_token %}
     <div class="form-row">
      <div class="form-group col-md-2 mb-0">
-       {{ form.rarity_filter|as_crispy_field }}
+       {{ form.rarity_filter |as_crispy_field }}
      </div>
      <div class="form-group col-md-2 mb-0">
-       {{ form.attunement_filter|as_crispy_field }}
+       {{ form.attunement_filter |as_crispy_field }}
      </div>
      <div class="form-group col-md-2 mb-0">
-       {{ form.type_filter|as_crispy_field }}
+       {{ form.type_filter |as_crispy_field }}
      </div>
      <div class="form-group col-md-2 mb-0">
-       {{ form.campaign_filter|as_crispy_field }}
+       {{ form.campaign_filter |as_crispy_field }}
      </div>
      <input class="btn btn-md btn-primary"  name="filter_items" type="submit" value="Filter Items" />
    </div>
