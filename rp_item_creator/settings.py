@@ -73,6 +73,8 @@ INSTALLED_APPS = [
     "mezzanine.twitter",
     "mezzanine.utils",
 
+    "crispy_forms",
+
     "item_forger",
 
 

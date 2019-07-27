@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 from mezzanine.conf import settings
+from django.views.generic.base import TemplateView
+
 
 admin.autodiscover()
 
@@ -29,6 +31,10 @@ urlpatterns = i18n_patterns(
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^$',
+        TemplateView.as_view(template_name='base.html'),
+        name='home'),
+    url(r'^items/', include('item_forger.urls', namespace='item_forger')),
     url(r"^", include("mezzanine.urls")),
 ]
 
