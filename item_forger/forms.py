@@ -82,6 +82,7 @@ class ForgeItemForm(ModelForm):
         max_length=5000, required=True, widget=Textarea(attrs={"rows": 5, "cols": 80})
     )
     benefits = CharField(widget=Textarea(attrs={"rows": 5, "cols": 80}), required=True)
+    notes = CharField(widget=Textarea(attrs={"rows": 5, "cols": 80}), required=False)
 
     class Meta:
         model = RPItem
@@ -94,6 +95,7 @@ class ForgeItemForm(ModelForm):
             "value",
             "description",
             "benefits",
+            "notes"
         ]
 
     def __init__(self, *args, **kwargs):
@@ -139,7 +141,7 @@ class EditItemForm(ModelForm):
         max_length=5000, required=True, widget=Textarea(attrs={"rows": 5, "cols": 80})
     )
     benefits = CharField(widget=Textarea(attrs={"rows": 5, "cols": 80}), required=True)
-
+    notes = CharField(widget=Textarea(attrs={"rows": 5, "cols": 80}), required=False)
     class Meta:
         model = RPItem
         fields = [
@@ -151,6 +153,7 @@ class EditItemForm(ModelForm):
             "value",
             "description",
             "benefits",
+            "notes"
         ]
 
     def __init__(self, item, *args, **kwargs):
@@ -170,6 +173,7 @@ class EditItemForm(ModelForm):
         self.initial["value"] = item.value
         self.initial["description"] = item.description
         self.initial["benefits"] = item.benefits
+        self.initial["notes"] = item.notes
 
     def clean_rarity(self):
         data = self.cleaned_data["rarity"]

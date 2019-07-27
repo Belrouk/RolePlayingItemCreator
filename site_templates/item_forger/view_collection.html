@@ -39,7 +39,7 @@
       </div>
             <ul class="list-group">
               {% for item in item_list %}
-                {% include 'viewer/_partials/_item_card.html' with item=item%}
+                {% include 'item_forger/_partials/_item_card.html' with item=item%}
               {% empty %}
                 <h3> no items found </h3>
               {% endfor %}
