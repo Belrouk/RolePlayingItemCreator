@@ -2,7 +2,7 @@
 {% load i18n static crispy_forms_tags %}
 
 {% block replace_main %}
-  <div class="">
+<div class="">
     <h1>Magic Items</h1>
     {% if form.errors and not form.non_field_errors %}
       <p class="errornote alert alert-danger">
@@ -10,7 +10,7 @@
         {% else %}{% trans "Please correct the errors below." %}{% endif %}
       </p>
       {% endif %}
-    <form method='POST' enctype="multipart/form-data" action="/items/collection/">
+    <form method='GET' enctype="multipart/form-data" action="/items/collection/">
         {% csrf_token %}
     <div class="form-row">
      <div class="form-group col-md-2 mb-0">

@@ -1,29 +1,23 @@
 from django.db.models import (
-    Count,
-    Exists,
-    F,
-    IntegerField,
     Manager,
-    OuterRef,
     Prefetch,
     Q,
     QuerySet,
-    Subquery,
-    Sum,
 )
-
-from .models import RPItem
 
 
 class ItemCollectionQuerySet(QuerySet):
+    # def prefetch(self, *args, **kwargs):
+    #     return self.prefetch_related()
+
     def filter_item_query(self, rarity, attunement, type, campaign, *args, **kwargs):
-        M = RPItem.objects.all()
-        if int(rarity) > 0:
-            M = M.filter(rarity=rarity)
-        if attunement is not None:
-            M = M.filter(attunement=attunement)
-        if int(type) > 0:
-            M = M.filter(type=type)
-        if campaign is not None:
-            M = M.filter(campaign=campaign)
-        return M
+        query = self
+        if rarity and int(rarity) > 0:
+            query = query.filter(rarity=rarity)
+        if attunement:
+            query = query.filter(attunement=attunement)
+        if type and int(type) > 0:
+            query = query.filter(type=type)
+        if campaign:
+            query = query.filter(campaign=campaign)
+        return query

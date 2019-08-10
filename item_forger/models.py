@@ -1,7 +1,7 @@
-from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.db.models import Model, CharField, TextField, IntegerField, AutoField
+from django.db.models import CharField, TextField, IntegerField, AutoField, ForeignKey
 from mezzanine.core.models import TimeStamped
+from .queries import ItemCollectionQuerySet
 
 
 class RPItem(TimeStamped):
@@ -56,6 +56,7 @@ class RPItem(TimeStamped):
     NO = "No"
     SPECIAL = "Special"
     ATTUNEMENT = ((YES, _("Yes")), (NO, _("No")), (SPECIAL, _("Special")))
+
     id = AutoField(primary_key=True)
     # Creator of item should be added
     campaign = CharField(max_length=200, null=True, blank=True, default=None)
@@ -85,13 +86,13 @@ class RPItem(TimeStamped):
     value = CharField(max_length=100, null=True, blank=True, default=None)
     description = TextField()
     benefits = TextField()
-    notes = TextField(default="", null=True, blank=True)
     # tags for the item should go here as well. for searching. later edition.\
 
     # Add this in when things are stable. The figure out proper error checking. Crispy
     # doesn't do it automatically
     # class Meta:
     #     unique_together= ("name", 'campaign') #and user
+    objects = ItemCollectionQuerySet.as_manager()
 
     def __str__(self):
         return self.name
@@ -109,3 +110,14 @@ class RPItem(TimeStamped):
             return "---"
         type_text = {key: value for key, value in self.ITEM_TYPE}
         return type_text[self.type]
+
+    @property
+    def get_notes(self):
+        return Notes.objects.filter(item=self.id)
+
+
+class Notes(TimeStamped):
+
+    # user
+    item = ForeignKey("RPItem", null=True, blank=True)
+    note = TextField()

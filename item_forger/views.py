@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect
 from .models import RPItem
 
 from .forms import ViewCollectionForm, ForgeItemForm, EditItemForm
-from .queries import ItemCollectionQuerySet as ICQS
 
 
 def create_item_view(
@@ -76,28 +75,30 @@ def view_collection(
     *args,
     **kwargs
 ):
+    initial = {key: value for key, value in request.GET.items()}
+    form = form_class(
+        initial=initial, data=request.POST or None, files=request.FILES or None
+    )
 
-    form = form_class(data=request.POST or None, files=request.FILES or None)
+    if request.GET:
+        rarity = request.GET.get("rarity_filter")
+        type = request.GET.get("type_filter")
+        attunement = request.GET.get("attunement_filter")
+        campaign = request.GET.get("campaign_filter")
+        items = RPItem.objects.filter_item_query(
+            rarity=rarity, attunement=attunement, type=type, campaign=campaign
+        )
 
-    if "filter_items" in request.POST:
-        if form.is_valid():
-            rarity = form.cleaned_data["rarity_filter"]
-            type = form.cleaned_data["type_filter"]
-            attunement = form.cleaned_data["attunement_filter"]
-            campaign = form.cleaned_data["campaign_filter"]
-            items = ICQS().filter_item_query(
-                rarity=rarity, attunement=attunement, type=type, campaign=campaign
-            )
 
-    elif "export_items" in request.POST:
-        if form.is_valid():
-            rarity = form.cleaned_data["rarity_filter"]
-            type = form.cleaned_data["type_filter"]
-            attunement = form.cleaned_data["attunement_filter"]
-            campaign = form.cleaned_data["campaign_filter"]
-            items = ICQS().filter_item_query(
-                rarity=rarity, attunement=attunement, type=type, campaign=campaign
-            )
+    # elif "export_items" in request.POST:
+    #     if form.is_valid():
+    #         rarity = form.cleaned_data["rarity_filter"]
+    #         type = form.cleaned_data["type_filter"]
+    #         attunement = form.cleaned_data["attunement_filter"]
+    #         campaign = form.cleaned_data["campaign_filter"]
+    #         items = RPItem.objects.filter_item_query(
+    #             rarity=rarity, attunement=attunement, type=type, campaign=campaign
+    #         )
             # pdf = PDFExporter()
             # response = pdf.generate(items)
             # return response
@@ -105,6 +106,9 @@ def view_collection(
     else:
         items = RPItem.objects.all()
 
-    context = {"item_list": items, "form": form_class}
+    context = {
+                "item_list": items,
+                "form": form
+                }
     context.update(extra_context or {})
     return render(request, template, context, *args, **kwargs)

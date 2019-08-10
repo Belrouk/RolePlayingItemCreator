@@ -55,20 +55,9 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.redirects",
     "django_comments",
-    "mezzanine.boot",
-    "mezzanine.core",
-    "mezzanine.pages",
-    "mezzanine.generic",
-    "mezzanine.blog",
-    "mezzanine.accounts",
-    "mezzanine.forms",
-    "mezzanine.galleries",
-    "mezzanine.conf",
-    "mezzanine.template",
-    "mezzanine.template.loader_tags",
-    "mezzanine.twitter",
-    "mezzanine.utils",
+
     "crispy_forms",
+
     "item_forger",
 ]
 
@@ -80,11 +69,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "mezzanine.core.request.CurrentRequestMiddleware",
-    "mezzanine.core.middleware.RedirectFallbackMiddleware",
-    "mezzanine.core.middleware.AdminLoginInterfaceSelectorMiddleware",
-    "mezzanine.core.middleware.SitePermissionMiddleware",
-    "mezzanine.pages.middleware.PageMiddleware",
 ]
 
 ROOT_URLCONF = "rp_item_creator.urls"
@@ -103,19 +87,15 @@ TEMPLATES = [
                 "django.template.context_processors.media",
                 "django.template.context_processors.request",
                 "django.template.context_processors.tz",
-                "mezzanine.conf.context_processors.settings",
-                "mezzanine.pages.context_processors.page",
             ],
-            "builtins": ["mezzanine.template.loader_tags"],
+            "builtins": [],
             "loaders": [
-                "mezzanine.template.loaders.host_themes.Loader",
                 "django.template.loaders.filesystem.Loader",
                 "django.template.loaders.app_directories.Loader",
             ],
         },
     }
 ]
-
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "site_assets")]
 DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50M
@@ -149,8 +129,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
-WSGI_APPLICATION = "rp_item_creator.wsgi.application"
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -188,21 +166,3 @@ if os.path.exists(f):
     module.__file__ = f
     sys.modules[module_name] = module
     exec(open(f, "rb").read())
-
-
-####################
-# DYNAMIC SETTINGS #
-####################
-
-# set_dynamic_settings() will rewrite globals based on what has been
-# defined so far, in order to provide some better defaults where
-# applicable. We also allow this settings module to be imported
-# without Mezzanine installed, as the case may be when using the
-# fabfile, where setting the dynamic settings below isn't strictly
-# required.
-try:
-    from mezzanine.utils.conf import set_dynamic_settings
-except ImportError:
-    pass
-else:
-    set_dynamic_settings(globals())
