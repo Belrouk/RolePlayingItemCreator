@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from .models import RPItem
-
+from item_export.models import PDFExporter
 from .forms import ViewCollectionForm, ForgeItemForm, EditItemForm
 
 
@@ -80,28 +80,23 @@ def view_collection(
         initial=initial, data=request.POST or None, files=request.FILES or None
     )
 
-    if request.GET:
-        rarity = request.GET.get("rarity_filter")
-        type = request.GET.get("type_filter")
-        attunement = request.GET.get("attunement_filter")
-        campaign = request.GET.get("campaign_filter")
+    rarity = request.GET.get("rarity_filter")
+    type = request.GET.get("type_filter")
+    attunement = request.GET.get("attunement_filter")
+    campaign = request.GET.get("campaign_filter")
+
+    if 'filter_items' in request.GET:
         items = RPItem.objects.filter_item_query(
             rarity=rarity, attunement=attunement, type=type, campaign=campaign
         )
 
-
-    # elif "export_items" in request.POST:
-    #     if form.is_valid():
-    #         rarity = form.cleaned_data["rarity_filter"]
-    #         type = form.cleaned_data["type_filter"]
-    #         attunement = form.cleaned_data["attunement_filter"]
-    #         campaign = form.cleaned_data["campaign_filter"]
-    #         items = RPItem.objects.filter_item_query(
-    #             rarity=rarity, attunement=attunement, type=type, campaign=campaign
-    #         )
-            # pdf = PDFExporter()
-            # response = pdf.generate(items)
-            # return response
+    if "export_items" in request.GET:
+            items = RPItem.objects.filter_item_query(
+                rarity=rarity, attunement=attunement, type=type, campaign=campaign
+            )
+            pdf = PDFExporter()
+            response = pdf.generate(items)
+            return response
 
     else:
         items = RPItem.objects.all()

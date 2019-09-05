@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "crispy_forms",
 
     "item_forger",
+    "item_export",
 ]
 
 MIDDLEWARE = [
